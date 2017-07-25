@@ -1,0 +1,476 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+
+<head>
+<title>NewProject1</title>
+
+<!-- Use this meta tag on your mobile page -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<!-- Use these three includes on your pages under <head> section -->
+<link type="text/css" rel="stylesheet" href="imagerotator/html/css/retina.css"/>
+<script type="text/javascript" src="imagerotator/html/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="imagerotator/html/js/imagerotator.js"></script>
+
+
+
+<!-- include the jQuery and jQuery UI scripts -->
+<!-- <script src="https://code.jquery.com/jquery-2.1.1.js"></script> -->
+<!-- <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script> -->
+<script src="js/jquery-ui.js"></script>
+                
+<!-- plus a jQuery UI theme, here I use "flick" -->
+<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css"> -->
+<link rel="stylesheet" href="css/jquery-ui.css">
+
+<script src="js/jquery-ui-slider-pips.js"></script>
+<link rel="stylesheet" href="css/jquery-ui-slider-pips.css">
+
+
+
+<style type= "text/css">
+#content {
+  border: 1px dotted #cecfd2;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 570px;
+  margin: 0;
+  padding: 0;
+  width: 32%;
+  overflow: hidden;
+  transition: all 0.6s ease 0s;
+}
+/*
+.wr360_player::after {
+    content: ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 0px;
+    color: transparent;
+    z-index: 99999999999999999;
+    background-color: rgba(0,0,0,0.2);
+}
+*/
+</style>
+
+
+<!-- Copy this script block and paste under your page <head> section or somewhere inside your page <body> -->
+
+<script language="javascript" type="text/javascript">
+var rotator_1;
+var rotator_2;
+var previous_frame = 0;
+var height_temp;
+
+jQuery(document).ready(function(){
+/*
+    var viewer1 = jQuery('#wr360PlayerId_1').rotator({
+        licenseFileURL: 'license.lic',
+		configFileURL: '01/360_assets/NewProject1/NewProject1.xml',
+		graphicsPath: 'imagerotator/html/img/retina',
+        responsiveBaseWidth: 1330,
+        responsiveMinHeight: 0,
+        googleEventTracking: false,
+    });
+*/
+/*
+    rotator_2 = jQuery('#wr360PlayerId_2').rotator({
+        licenseFileURL: 'license.lic',
+		configFileURL: '02/360_assets/NewProject1/NewProject1.xml',
+		graphicsPath: 'imagerotator/html/img/retina',
+        responsiveBaseWidth: 1330,
+        responsiveMinHeight: 0,
+        googleEventTracking: false,
+    });
+*/
+rotator_1 = new WR360.ImageRotator.Create('wr360PlayerId_1');
+rotator_1.settings.licenseFileURL = 'license.lic';
+rotator_1.settings.configFileURL = '01/360_assets/NewProject1/NewProject1.xml';
+rotator_1.settings.graphicsPath = 'imagerotator/html/img/retina';
+rotator_1.settings.responsiveBaseWidth = 1330;
+rotator_1.settings.responsiveMinHeight = 0;
+rotator_1.settings.googleEventTracking = false;
+rotator_1.runImageRotator();
+
+
+rotator_2 = new WR360.ImageRotator.Create('wr360PlayerId_2');
+rotator_2.settings.licenseFileURL = 'license.lic';
+rotator_2.settings.configFileURL = '01/360_assets/NewProject1/NewProject1.xml';
+rotator_2.settings.graphicsPath = 'imagerotator/html/img/retina';
+rotator_2.settings.responsiveBaseWidth = 1330;
+rotator_2.settings.responsiveMinHeight = 0;
+rotator_2.settings.googleEventTracking = false;
+rotator_2.runImageRotator();
+
+
+rotator_3 = new WR360.ImageRotator.Create('wr360PlayerId_3');
+rotator_3.settings.licenseFileURL = 'license.lic';
+rotator_3.settings.configFileURL = '01/360_assets/NewProject1/NewProject1.xml';
+rotator_3.settings.graphicsPath = 'imagerotator/html/img/retina';
+rotator_3.settings.responsiveBaseWidth = 1330;
+rotator_3.settings.responsiveMinHeight = 0;
+rotator_3.settings.googleEventTracking = false;
+rotator_3.runImageRotator();
+
+
+//rotator_1.api.toolbar.rotateOnce();
+//rotator_1.reload("new-path");
+//rotator_1.goto_next_frame();
+
+// $(".right_button").trigger("mousedown");$(".right_button").trigger("mouseup");
+
+$(document).on('input', '#slider', function() {
+    $('#slider_value').html( $(this).val() );
+	if(previous_frame < $(this).val())
+	{
+		rotator_1.goto_next_frame();
+		rotator_2.goto_next_frame();
+		rotator_3.goto_next_frame();
+	}
+	else
+	{
+		rotator_1.goto_previous_frame();
+		rotator_2.goto_previous_frame();
+		rotator_3.goto_previous_frame();
+	}
+	
+	previous_frame = $(this).val();
+});
+
+height_temp = $(".wr360_player").parent().css("height");
+
+$(".wr360_player").click(function(e) {
+	if($(".wr360_player").hasClass("big")==false)
+	{
+		$(this).addClass("big");
+		$(".wr360_player").parent().css("width","20%");
+		$(this).parent().css("width","57%");
+	}
+	else
+	{
+		$(".wr360_player").removeClass("big");
+		$(".wr360_player").parent().css("width","32%");
+		$(".wr360_player").parent().css("height",height_temp);
+	}
+	setTimeout(function(){
+		rotator_1.reload("");
+		rotator_2.reload("");
+		rotator_3.reload("");
+	}, 650);
+});
+
+
+});
+
+</script>
+
+<!-- End of script copy / paste -->
+
+
+</head>
+
+
+
+<body>
+
+    <div class="responsive-wrapper-demo-do-not-copy" >    
+
+        <!-- Just copy / paste the content div below onto your page and define content CSS styles as needed -->
+
+        <div id="content">
+            <div id="wr360PlayerId_1" class="wr360_player" style="background-color:#FFFFFF;"></div>
+        </div>
+        <div id="content">
+            <div id="wr360PlayerId_2" class="wr360_player" style="background-color:#FFFFFF;"></div>
+        </div>
+        <div id="content">
+            <div id="wr360PlayerId_3" class="wr360_player" style="background-color:#FFFFFF;"></div>
+        </div>
+
+    </div>    
+<input type="range" id="slider" class="slider" value="90" min="1" max="180" step="1" style="width:100%;" />
+<br />
+<span id="slider_value">Nothing yet.</span>
+
+
+<br/>
+<br/>
+<div style="width:100%;height:100px;overflow-x:hidden;padding-top:30px">
+<div id="flat-slider"></div>
+</div>
+<script>
+$("#flat-slider")
+    .slider({
+        max: 180,
+        min: 0,
+        range: "max",
+        value: 90,
+    })
+    .slider("pips", {
+        first: "pip",
+        last: "pip",
+        rest: "pip",
+        step: "1",
+    });
+$("#flat-slider").on("slidechange slide", function( e, ui ) { 
+    //$txtbox.val( ui.value ) //
+	$('#slider').val(ui.value);
+	
+	if(previous_frame < ui.value)
+	{
+		rotator_1.goto_next_frame();
+		rotator_2.goto_next_frame();
+		rotator_3.goto_next_frame();
+	}
+	else
+	{
+		rotator_1.goto_previous_frame();
+		rotator_2.goto_previous_frame();
+		rotator_3.goto_previous_frame();
+	}
+	
+	previous_frame = ui.value;
+});
+</script>
+<style>
+
+
+#flat-slider.ui-slider {
+  background: #d5cebc;
+  border: none;
+  border-radius: 0; }
+                    
+  #flat-slider.ui-slider .ui-slider-handle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50% 50% 0;
+    border-color: transparent;
+    transition: border 0.4s ease; }
+                    
+    #flat-slider.ui-slider .ui-slider-handle.ui-state-hover, 
+    #flat-slider.ui-slider .ui-slider-handle.ui-state-focus, 
+    #flat-slider.ui-slider .ui-slider-handle.ui-state-active {
+      border-color: #172f38; }
+                    
+  #flat-slider.ui-slider .ui-slider-pip .ui-slider-line {
+    background: #d5cebc;
+    transition: all 0.4s ease; }
+                    
+  #flat-slider.ui-slider.ui-slider-horizontal {
+    height: 6px; }
+                    
+    #flat-slider.ui-slider.ui-slider-horizontal .ui-slider-handle {
+      -webkit-transform: rotateZ(45deg);
+              transform: rotateZ(45deg);
+      top: -25px;
+      margin-left: -10px; }
+                    
+    #flat-slider.ui-slider.ui-slider-horizontal .ui-slider-pip {
+      top: 10px; }
+                    
+      #flat-slider.ui-slider.ui-slider-horizontal .ui-slider-pip .ui-slider-line {
+        width: 2px;
+        height: 10px;
+        margin-left: -1px; }
+                    
+      #flat-slider.ui-slider.ui-slider-horizontal .ui-slider-pip[class*=ui-slider-pip-selected] .ui-slider-line {
+        height: 20px; }
+                    
+      #flat-slider.ui-slider.ui-slider-horizontal .ui-slider-pip.ui-slider-pip-inrange .ui-slider-line {
+        height: 12px; }
+                    
+  #flat-slider.ui-slider.ui-slider-vertical {
+    width: 6px;
+    height: 125px;
+    display: inline-block;
+    margin: 0 15%; }
+                    
+    #flat-slider.ui-slider.ui-slider-vertical .ui-slider-handle {
+      -webkit-transform: rotateZ(-45deg);
+              transform: rotateZ(-45deg);
+      left: -25px;
+      margin-bottom: -10px; }
+                    
+    #flat-slider.ui-slider.ui-slider-vertical .ui-slider-pip {
+      left: 10px; }
+                    
+      #flat-slider.ui-slider.ui-slider-vertical .ui-slider-pip .ui-slider-line {
+        height: 2px;
+        width: 10px;
+        margin-top: -1px; }
+                    
+      #flat-slider.ui-slider.ui-slider-vertical .ui-slider-pip[class*=ui-slider-pip-selected] .ui-slider-line {
+        width: 20px; }
+                    
+      #flat-slider.ui-slider.ui-slider-vertical .ui-slider-pip.ui-slider-pip-inrange .ui-slider-line {
+        width: 12px; }
+                    
+      #flat-slider.ui-slider.ui-slider-vertical .ui-slider-handle .ui-slider-tip,
+      #flat-slider.ui-slider.ui-slider-vertical .ui-slider-handle[class*=ui-state-] .ui-slider-tip {
+        visibility: visible;
+        opacity: 1;
+        border: none;
+        background: transparent;
+        left: 50%;
+        width: 30px;
+        margin-left: -15px;
+        text-align: center;
+        color: white;
+        font-weight: normal;
+        top: 10px;
+        -webkit-transform: rotateZ(45deg);
+                transform: rotateZ(45deg); }
+                    
+        #flat-slider.ui-slider.ui-slider-vertical .ui-slider-handle .ui-slider-tip:before,
+        #flat-slider.ui-slider.ui-slider-vertical .ui-slider-handle[class*=ui-state-] .ui-slider-tip:before {
+          display: none; }
+                    
+#flat-slider .ui-slider-handle,
+#flat-slider .ui-slider-range,
+#flat-slider .ui-slider-pip[class*=ui-slider-pip-selected] .ui-slider-line,
+#flat-slider .ui-slider-pip.ui-slider-pip-inrange .ui-slider-line {
+  background-color: #25daa5; }
+                    
+                    
+#flat-slider-vertical-1 .ui-slider-handle,
+#flat-slider-vertical-1 .ui-slider-range,
+#flat-slider-vertical-1 .ui-slider-pip[class*=ui-slider-pip-selected] .ui-slider-line,
+#flat-slider-vertical-1 .ui-slider-pip.ui-slider-pip-inrange .ui-slider-line {
+  background-color: #f27793; }
+                    
+                    
+#flat-slider-vertical-2 .ui-slider-handle,
+#flat-slider-vertical-2 .ui-slider-range,
+#flat-slider-vertical-2 .ui-slider-pip[class*=ui-slider-pip-selected] .ui-slider-line,
+#flat-slider-vertical-2 .ui-slider-pip.ui-slider-pip-inrange .ui-slider-line {
+  background-color: #bd77f2; }
+                    
+                    
+#flat-slider-vertical-3 .ui-slider-handle,
+#flat-slider-vertical-3 .ui-slider-range,
+#flat-slider-vertical-3 .ui-slider-pip[class*=ui-slider-pip-selected] .ui-slider-line,
+#flat-slider-vertical-3 .ui-slider-pip.ui-slider-pip-inrange .ui-slider-line {
+  background-color: #67c3ec; }
+.ui-slider-float .ui-slider-handle:focus,
+.ui-slider-float .ui-slider-handle:focus .ui-slider-tip,
+.ui-slider-float .ui-slider-handle:focus .ui-slider-tip-label,
+#flat-slider.ui-slider.ui-slider-horizontal .ui-slider-handle {
+    outline: none;
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+input[type=range].slider {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 0.7px 0;
+}
+input[type=range].slider:focus {
+  outline: none;
+}
+input[type=range].slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 25.6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #484d4d;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range].slider::-webkit-slider-thumb {
+  box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
+  border: 0px solid #ff1e00;
+  height: 27px;
+  width: 18px;
+  border-radius: 0px;
+  background: rgba(250, 67, 95, 0.93);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -0.7px;
+}
+input[type=range].slider:focus::-webkit-slider-runnable-track {
+  background: #545a5a;
+}
+input[type=range].slider::-moz-range-track {
+  width: 100%;
+  height: 25.6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #484d4d;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range].slider::-moz-range-thumb {
+  box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
+  border: 0px solid #ff1e00;
+  height: 27px;
+  width: 18px;
+  border-radius: 0px;
+  background: rgba(250, 67, 95, 0.93);
+  cursor: pointer;
+}
+input[type=range].slider::-ms-track {
+  width: 100%;
+  height: 25.6px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range].slider::-ms-fill-lower {
+  background: #3c4040;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range].slider::-ms-fill-upper {
+  background: #484d4d;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range].slider::-ms-thumb {
+  box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
+  border: 0px solid #ff1e00;
+  height: 27px;
+  width: 18px;
+  border-radius: 0px;
+  background: rgba(250, 67, 95, 0.93);
+  cursor: pointer;
+  height: 25.6px;
+}
+input[type=range].slider:focus::-ms-fill-lower {
+  background: #484d4d;
+}
+input[type=range].slider:focus::-ms-fill-upper {
+  background: #545a5a;
+}
+
+
+
+</style>
+</body>
+</html>
