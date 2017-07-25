@@ -7,13 +7,16 @@
 <!-- Use this meta tag on your mobile page -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
+<meta charset="utf-8" />
 <!-- Use these three includes on your pages under <head> section -->
 <link type="text/css" rel="stylesheet" href="imagerotator/html/css/retina.css"/>
 <script type="text/javascript" src="imagerotator/html/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="imagerotator/html/js/imagerotator.js"></script>
 
 <style type= "text/css">
+.wr360_player {
+  text-align:center;
+}
 #content {
   border: 1px dotted #cecfd2;
   box-sizing: border-box;
@@ -23,8 +26,12 @@
   padding: 0;
   width: 32%;
   overflow: hidden;
+  text-align:center;
   transition: all 0.6s ease 0s;
 }
+
+img.panning{width:100% !important;height:auto !important;}
+.container{width:100% !important;}
 /*
 .wr360_player::after {
     content: ".";
@@ -49,6 +56,9 @@ var rotator_1;
 var rotator_2;
 var previous_frame = 0;
 var height_temp;
+var width_temp;
+var width_full;
+var height_full;
 
 jQuery(document).ready(function(){
 /*
@@ -125,26 +135,43 @@ $(document).on('input', '#slider', function() {
 	previous_frame = $(this).val();
 });
 
-height_temp = $(".wr360_player").parent().css("height");
-
+setTimeout(function(){
+	height_temp	= $(".wr360_player").parent().css("height").replace(/[^-\d\.]/g, '');
+	width_temp	= $(".wr360_player").parent().css("width").replace(/[^-\d\.]/g, '');
+	
+	width_full	= (width_temp * 100)/32;
+	height_full	= (height_temp * 100)/32;
+}, 650);
+	
 $(".wr360_player").click(function(e) {
 	if($(this).hasClass("big")==false)
 	{
 		$(this).addClass("big");
 		$(".wr360_player").parent().css("width","20%");
+		$(".wr360_player").parent().css("height",height_full*20/100 + "px");
+		$(".wr360_player").css("height",height_full*20/100 + "px");
+		$(".wr360_player div").css("height",height_full*20/100 + "px");
+		
 		$(this).parent().css("width","57%");
+		$(this).parent().css("height",height_full*57/100 + "px");
+		$(this).css("height",height_full*57/100 + "px");
+		$(this).find(">div").css("height",height_full*57/100 + "px");
 	}
 	else
 	{
 		$(".wr360_player").removeClass("big");
+		$(".wr360_player").parent().css("height",height_temp + "px");
 		$(".wr360_player").parent().css("width","32%");
-		$(".wr360_player").parent().css("height",height_temp);
+		
+		$(".wr360_player").css("height",height_full*32/100 + "px");
+		$(".wr360_player div").css("height",height_full*32/100 + "px");
 	}
 	setTimeout(function(){
-		rotator_1.reload("");
-		rotator_2.reload("");
-		rotator_3.reload("");
-	}, 650);
+		//$(".right_button").trigger("resize");
+		//rotator_1.reload("");
+		//rotator_2.reload("");
+		//rotator_3.reload("");
+	}, 750);
 });
 
 
