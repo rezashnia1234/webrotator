@@ -1,303 +1,905 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
-
-<head>
-<title>بسم الله الرحمن الرحیم</title>
-
-<!-- Use this meta tag on your mobile page -->
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta charset="utf-8" />
-<!-- Use these three includes on your pages under <head> section -->
-<link type="text/css" rel="stylesheet" href="imagerotator/html/css/retina.css"/>
-<script type="text/javascript" src="imagerotator/html/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="imagerotator/html/js/imagerotator.js"></script>
-
-<style type= "text/css">
-.wr360_player {
-  text-align:center;
-}
-#content {
-  border: 1px dotted #cecfd2;
-  box-sizing: border-box;
-  display: inline-block;
-  height: 570px;
-  margin: 0;
-  padding: 0;
-  width: 32%;
-  overflow: hidden;
-  text-align:center;
-  transition: all 0.6s ease 0s;
-}
-
-img.panning{width:100% !important;height:auto !important;}
-.container{width:100% !important;}
-/*
-.wr360_player::after {
-    content: ".";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    font-size: 0px;
-    color: transparent;
-    z-index: 99999999999999999;
-    background-color: rgba(0,0,0,0.2);
-}
-*/
-</style>
-
-
-<!-- Copy this script block and paste under your page <head> section or somewhere inside your page <body> -->
-
-<script language="javascript" type="text/javascript">
-var rotator_1;
-var rotator_2;
-var previous_frame = 0;
-var height_temp;
-var width_temp;
-var width_full;
-var height_full;
-
-jQuery(document).ready(function(){
-/*
-    var viewer1 = jQuery('#wr360PlayerId_1').rotator({
-        licenseFileURL: 'license.lic',
-		configFileURL: '01/360_assets/NewProject1/NewProject1.xml',
-		graphicsPath: 'imagerotator/html/img/retina',
-        responsiveBaseWidth: 1330,
-        responsiveMinHeight: 0,
-        googleEventTracking: false,
-    });
-*/
-/*
-    rotator_2 = jQuery('#wr360PlayerId_2').rotator({
-        licenseFileURL: 'license.lic',
-		configFileURL: '02/360_assets/NewProject1/NewProject1.xml',
-		graphicsPath: 'imagerotator/html/img/retina',
-        responsiveBaseWidth: 1330,
-        responsiveMinHeight: 0,
-        googleEventTracking: false,
-    });
-*/
-rotator_1 = new WR360.ImageRotator.Create('wr360PlayerId_1');
-rotator_1.settings.licenseFileURL = 'license.lic';
-rotator_1.settings.configFileURL = '01/360_assets/NewProject1/NewProject1.xml';
-rotator_1.settings.graphicsPath = 'imagerotator/html/img/retina';
-rotator_1.settings.responsiveBaseWidth = 1330;
-rotator_1.settings.responsiveMinHeight = 0;
-rotator_1.settings.googleEventTracking = false;
-rotator_1.runImageRotator();
-
-
-rotator_2 = new WR360.ImageRotator.Create('wr360PlayerId_2');
-rotator_2.settings.licenseFileURL = 'license.lic';
-rotator_2.settings.configFileURL = '01/360_assets/NewProject1/NewProject1.xml';
-rotator_2.settings.graphicsPath = 'imagerotator/html/img/retina';
-rotator_2.settings.responsiveBaseWidth = 1330;
-rotator_2.settings.responsiveMinHeight = 0;
-rotator_2.settings.googleEventTracking = false;
-rotator_2.runImageRotator();
-
-
-rotator_3 = new WR360.ImageRotator.Create('wr360PlayerId_3');
-rotator_3.settings.licenseFileURL = 'license.lic';
-rotator_3.settings.configFileURL = '01/360_assets/NewProject1/NewProject1.xml';
-rotator_3.settings.graphicsPath = 'imagerotator/html/img/retina';
-rotator_3.settings.responsiveBaseWidth = 1330;
-rotator_3.settings.responsiveMinHeight = 0;
-rotator_3.settings.googleEventTracking = false;
-rotator_3.runImageRotator();
-
-
-//rotator_1.api.toolbar.rotateOnce();
-//rotator_1.reload("new-path");
-//rotator_1.goto_next_frame();
-
-// $(".right_button").trigger("mousedown");$(".right_button").trigger("mouseup");
-
-$(document).on('input', '#slider', function() {
-    $('#slider_value').html( $(this).val() );
-	if(previous_frame < $(this).val())
-	{
-		rotator_1.goto_next_frame();
-		rotator_2.goto_next_frame();
-		rotator_3.goto_next_frame();
-	}
-	else
-	{
-		rotator_1.goto_previous_frame();
-		rotator_2.goto_previous_frame();
-		rotator_3.goto_previous_frame();
-	}
-	
-	previous_frame = $(this).val();
-});
-
-setTimeout(function(){
-	height_temp	= $(".wr360_player").parent().css("height").replace(/[^-\d\.]/g, '');
-	width_temp	= $(".wr360_player").parent().css("width").replace(/[^-\d\.]/g, '');
-	
-	width_full	= (width_temp * 100)/32;
-	height_full	= (height_temp * 100)/32;
-}, 650);
-	
-$(".wr360_player").click(function(e) {
-	if($(this).hasClass("big")==false)
-	{
-		$(this).addClass("big");
-		$(".wr360_player").parent().css("width","20%");
-		$(".wr360_player").parent().css("height",height_full*20/100 + "px");
-		$(".wr360_player").css("height",height_full*20/100 + "px");
-		$(".wr360_player div").css("height",height_full*20/100 + "px");
-		
-		$(this).parent().css("width","57%");
-		$(this).parent().css("height",height_full*57/100 + "px");
-		$(this).css("height",height_full*57/100 + "px");
-		$(this).find(">div").css("height",height_full*57/100 + "px");
-	}
-	else
-	{
-		$(".wr360_player").removeClass("big");
-		$(".wr360_player").parent().css("height",height_temp + "px");
-		$(".wr360_player").parent().css("width","32%");
-		
-		$(".wr360_player").css("height",height_full*32/100 + "px");
-		$(".wr360_player div").css("height",height_full*32/100 + "px");
-	}
-	setTimeout(function(){
-		//$(".right_button").trigger("resize");
-		//rotator_1.reload("");
-		//rotator_2.reload("");
-		//rotator_3.reload("");
-	}, 750);
-});
-
-
-});
-
-</script>
-
-<!-- End of script copy / paste -->
-
-
-</head>
-
-
-
-<body>
-
-    <div class="responsive-wrapper-demo-do-not-copy" >    
-
-        <!-- Just copy / paste the content div below onto your page and define content CSS styles as needed -->
-
-        <div id="content">
-            <div id="wr360PlayerId_1" class="wr360_player" style="background-color:#FFFFFF;"></div>
-        </div>
-        <div id="content">
-            <div id="wr360PlayerId_2" class="wr360_player" style="background-color:#FFFFFF;"></div>
-        </div>
-        <div id="content">
-            <div id="wr360PlayerId_3" class="wr360_player" style="background-color:#FFFFFF;"></div>
-        </div>
-
-    </div>    
-<input type="range" id="slider" class="slider" value="90" min="1" max="180" step="1" style="width:100%;" />
-<br />
-<span id="slider_value">Nothing yet.</span>
-
-
-
-<style>
-input[type=range].slider {
-  -webkit-appearance: none;
-  width: 100%;
-  margin: 0.7px 0;
-}
-input[type=range].slider:focus {
-  outline: none;
-}
-input[type=range].slider::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 25.6px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: #484d4d;
-  border-radius: 0px;
-  border: 0px solid #010101;
-}
-input[type=range].slider::-webkit-slider-thumb {
-  box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
-  border: 0px solid #ff1e00;
-  height: 27px;
-  width: 18px;
-  border-radius: 0px;
-  background: rgba(250, 67, 95, 0.93);
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -0.7px;
-}
-input[type=range].slider:focus::-webkit-slider-runnable-track {
-  background: #545a5a;
-}
-input[type=range].slider::-moz-range-track {
-  width: 100%;
-  height: 25.6px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: #484d4d;
-  border-radius: 0px;
-  border: 0px solid #010101;
-}
-input[type=range].slider::-moz-range-thumb {
-  box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
-  border: 0px solid #ff1e00;
-  height: 27px;
-  width: 18px;
-  border-radius: 0px;
-  background: rgba(250, 67, 95, 0.93);
-  cursor: pointer;
-}
-input[type=range].slider::-ms-track {
-  width: 100%;
-  height: 25.6px;
-  cursor: pointer;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-input[type=range].slider::-ms-fill-lower {
-  background: #3c4040;
-  border: 0px solid #010101;
-  border-radius: 0px;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-}
-input[type=range].slider::-ms-fill-upper {
-  background: #484d4d;
-  border: 0px solid #010101;
-  border-radius: 0px;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-}
-input[type=range].slider::-ms-thumb {
-  box-shadow: 0px 0px 1px #670000, 0px 0px 0px #810000;
-  border: 0px solid #ff1e00;
-  height: 27px;
-  width: 18px;
-  border-radius: 0px;
-  background: rgba(250, 67, 95, 0.93);
-  cursor: pointer;
-  height: 25.6px;
-}
-input[type=range].slider:focus::-ms-fill-lower {
-  background: #484d4d;
-}
-input[type=range].slider:focus::-ms-fill-upper {
-  background: #545a5a;
-}
-
-
-
-</style>
-</body>
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" lang="en-gb" dir="ltr" class="com_content view-category layout-blog itemid-512  body-bg mm-hover j37">
+	<head>
+		<!-- <base href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel" /> -->
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<!-- <meta name="description" content="Welcome to JoomlArt Demo Site" /> -->
+		<!-- <meta name="generator" content="Joomla! - Open Source Content Management" /> -->
+		<title>بسم الله الرحمن الرحیم</title>
+		<!-- <link href="index.php/en/travel?format=feed&amp;type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0" /> -->
+		<!-- <link href="index.php/en/travel?format=feed&amp;type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0" /> -->
+		<link href="templates/ja_smashboard/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+		<link href="css/css-a67b2-98834.css" rel="stylesheet" type="text/css" media="all" attribs="[]" />
+		<link href="templates/ja_smashboard/fonts/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/fontiran.css" rel="stylesheet" type="text/css" media="all" attribs="[]" />
+		<link href="css/css-8b947-98834.css" rel="stylesheet" type="text/css" media="all" attribs="[]" />
+		<link href="css/css-c3ae1-98834.css" rel="stylesheet" type="text/css" media="all" attribs="[]" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css" />
+		<link href="css/css-5de6a-98830.css" rel="stylesheet" type="text/css" media="all" attribs="[]" />
+		<script type="application/json" class="joomla-script-options new">{"system.paths":{"root":"","base":""},"system.keepalive":{"interval":840000,"uri":"\/index.php\/en\/component\/ajax\/?format=json"}}</script>
+		<script src="media/jui/js/jquery.min.js?43813ce97dc2a26ae57600ee79fc8b77" type="text/javascript"></script>
+		<script src="media/jui/js/jquery-noconflict.js?43813ce97dc2a26ae57600ee79fc8b77" type="text/javascript"></script>
+		<script src="media/jui/js/jquery-migrate.min.js?43813ce97dc2a26ae57600ee79fc8b77" type="text/javascript"></script>
+		<script src="media/k2/assets/js/k2.frontend.js?v=2.8.0&amp;sitepath=/" type="text/javascript"></script>
+		<script src="media/system/js/mootools-core.js?43813ce97dc2a26ae57600ee79fc8b77" type="text/javascript"></script>
+		<script src="media/system/js/core.js?43813ce97dc2a26ae57600ee79fc8b77" type="text/javascript"></script>
+		<script src="media/system/js/mootools-more.js?43813ce97dc2a26ae57600ee79fc8b77" type="text/javascript"></script>
+		<script src="media/system/js/caption.js?43813ce97dc2a26ae57600ee79fc8b77" type="text/javascript"></script>
+		<script src="plugins/system/t3/base/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+		<script src="plugins/system/t3/base/js/jquery.tap.min.js" type="text/javascript"></script>
+		<script src="plugins/system/t3/base/js/off-canvas.js" type="text/javascript"></script>
+		<script src="plugins/system/t3/base/js/script.js" type="text/javascript"></script>
+		<script src="plugins/system/t3/base/js/menu.js" type="text/javascript"></script>
+		<script src="plugins/system/t3/base/js/responsive.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/jquery.easing.1.3.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/jquery.mousewheel.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/jquery.infinitescroll.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/jquery.address.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/iscroll/iscroll.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/zinga-scroller/Animate.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/zinga-scroller/Scroller.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/zinga-scroller/EasyScroller.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/threesixty.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/script.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/jquery.article.js" type="text/javascript"></script>
+		<script src="templates/ja_smashboard/js/quicksearch.js" type="text/javascript"></script>
+		<!--[if lt IE 9]><script src="media/system/js/polyfill.event.js?43813ce97dc2a26ae57600ee79fc8b77" type="text/javascript"></script><![endif]-->
+		<script src="media/system/js/keepalive.js?43813ce97dc2a26ae57600ee79fc8b77" type="text/javascript"></script>
+		<script src="media/com_acymailing/js/acymailing_module.js?v=550" type="text/javascript" async="async"></script>
+		<script type="text/javascript">
+			var disqus_shortname = 'jademo';
+			var disqus_config = function(){
+				this.language = 'en';
+			};
+			/*
+			window.addEvent('load', function(){
+				(function () {
+				  var s = document.createElement('script'); s.async = true;
+				  s.src = 'http://jademo.disqus.com/count.js';
+				  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+				}());
+			});
+			*/
+			jQuery(window).on('load',  function() {
+							new JCaption('img.caption');
+						});
+			jQuery(function($){ $(".hasTooltip").tooltip({"html": true,"container": "body"}); });
+				if(typeof acymailing == 'undefined'){
+								var acymailing = Array();
+							}
+							acymailing['NAMECAPTION'] = 'Name';
+							acymailing['NAME_MISSING'] = 'Please enter your name';
+							acymailing['EMAILCAPTION'] = 'E-mail';
+							acymailing['VALID_EMAIL'] = 'Please enter a valid e-mail address';
+							acymailing['ACCEPT_TERMS'] = 'Please check the Terms and Conditions';
+							acymailing['CAPTCHA_MISSING'] = 'The captcha is invalid, please try again';
+							acymailing['NO_LIST_SELECTED'] = 'Please select the lists you want to subscribe to';
+					
+				
+		</script>
+		<!-- META FOR IOS & HANDHELD -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="apple-mobile-web-app-capable" content="YES" />
+		<!-- //META FOR IOS & HANDHELD -->
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<!--[if IE 8]>
+		<link type="text/css" href="templates/ja_smashboard/css/ie8.css" rel="stylesheet">
+		<![endif]-->
+		<!-- For IE6-8 support of media query -->
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="plugins/system/t3/base/js/respond.min.js"></script>
+		<![endif]-->
+		<!-- You can add Google Analytics here-->
+		<script type="text/javascript">
+			//<![CDATA[
+			var T3JSVars = {
+				baseUrl: '',
+				tplUrl: 'templates/ja_smashboard',
+				finishedMsg: '<em>Congratulations, you\'ve reached the end of the internet.</em>',
+				msgText: '<em>Loading the next set of posts...</em>',
+				ajaxTimeout: 'Loading seems to be taking a while...',
+				pageNotFound: 'Page not found',
+				pageNotFoundDesc: '<h1>404 Not Found</h1><p>Sorry, this page cannot be found.</p>',
+				searchResultEmpty: 'Your search did not return any results. Please try again.'
+			};
+			//]]>
+		</script>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header id="t3-header" class="wrap t3-header">
+			<!-- NAVBAR BUTTON -->
+			<button type="button" class="btn btn-navbar visible-phone" data-toggle="collapse" data-target=".nav-collapse">
+			<i class="icon-reorder"></i>
+			</button>
+			<!-- // NAVBAR BTN -->
+			<div class="row">
+				<div class="span6 top-social">
+					<div class="row-fluid">
+						<!-- USER, FOLLOW US -->
+						<div class="nav span12 head-social pull-right clearfix">
+							<ul class="nav-tabs btn-social">
+								<li class="dropdown">
+									<div class="mod-languages">
+										<ul class="lang-inline">
+											<li dir="rtl">
+												<a href="index.php/ar/">
+												<img src="media/mod_languages/images/ar.gif" alt="Arabic" title="Arabic" />										</a>
+											</li>
+											<li class="lang-active" dir="ltr">
+												<a href="index.php/en/">
+												<img src="media/mod_languages/images/en.gif" alt="English (UK)" title="English (UK)" />										</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="dropdown parent nav-connect" data-altkey="S">
+									<a tabindex="-1" href="" data-toggle="dropdown" class="dropdown-toggle">
+									<i class="icon-plus"></i>Follow Us				  </a>
+									<div class="nav-child dropdown-menu">
+										<div class="dropdown-menu-inner">
+											<div class="t3-module module social" id="Mod99">
+												<div class="module-inner">
+													<div class="module-ct">
+														<div class="custom social"  >
+															<ul class="social-list clearfix">
+																<li class="twitter"><a title="Twitter" href="#"><span class="icon-twitter">&nbsp;</span>Twitter</a></li>
+																<li class="google"><a title="Google" href="#"><span class="icon-google-plus">&nbsp;</span> Google</a></li>
+																<li class="facebook"><a title="Facebook" href="#"><span class="icon-facebook">&nbsp;</span>Facebook</a></li>
+																<li class="printeres"><a title="Printeres" href="#"><span class="icon-pinterest">&nbsp;</span>Printeres</a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="t3-module module" id="Mod97">
+												<div class="module-inner">
+													<h3 class="module-title"><span>AcyMailing Module</span></h3>
+													<div class="module-ct">
+														<div class="acymailing_module" id="acymailing_module_formAcymailing12171">
+															<div class="acymailing_fulldiv" id="acymailing_fulldiv_formAcymailing12171"  >
+																<form id="formAcymailing12171" action="/index.php/en/travel" onsubmit="return submitacymailingform('optin','formAcymailing12171', 0)" method="post" name="formAcymailing12171"  >
+																	<div class="acymailing_module_form" >
+																		<table class="acymailing_form">
+																			<tr>
+																				<td class="acyfield_email acy_requiredField">
+																					<input id="user_email_formAcymailing12171"  onfocus="if(this.value == 'E-mail') this.value = '';" onblur="if(this.value=='') this.value='E-mail';" class="inputbox" type="text" name="user[email]" style="width:80%" value="E-mail" title="E-mail"/>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td  class="acysubbuttons">
+																					<input class="button subbutton btn btn-primary" type="submit" value="Subscribe" name="Submit" onclick="try{ return submitacymailingform('optin','formAcymailing12171', 0); }catch(err){alert('The form could not be submitted '+err);return false;}"/>
+																				</td>
+																			</tr>
+																		</table>
+																		<input type="hidden" name="ajax" value="0" />
+																		<input type="hidden" name="acy_source" value="module_97" />
+																		<input type="hidden" name="ctrl" value="sub"/>
+																		<input type="hidden" name="task" value="notask"/>
+																		<input type="hidden" name="redirect" value="http%3A%2F%2Fja-smashboard.demo.joomlart.com%2Findex.php%2Fen%2Ftravel"/>
+																		<input type="hidden" name="redirectunsub" value="http%3A%2F%2Fja-smashboard.demo.joomlart.com%2Findex.php%2Fen%2Ftravel"/>
+																		<input type="hidden" name="option" value="com_acymailing"/>
+																		<input type="hidden" name="hiddenlists" value="1"/>
+																		<input type="hidden" name="acyformname" value="formAcymailing12171" />
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="dropdown parent nav-connect" data-altkey="U">
+									<a tabindex="-1" href="" data-toggle="dropdown" class="dropdown-toggle">
+									<i class="icon-user"></i>
+									User				  </a>
+									<div class="nav-child dropdown-menu">
+										<div class="dropdown-menu-inner">
+											<div class="t3-module module" id="Mod44">
+												<div class="module-inner">
+													<h3 class="module-title"><span>Login</span></h3>
+													<div class="module-ct">
+														<form action="/index.php/en/travel" method="post" id="login-form" >
+															<fieldset class="userdata">
+																<div id="form-login-username" class="control-group">
+																	<div class="controls">
+																		<div class="input-prepend">
+																			<span class="add-on"><i class="icon-user tip" title="Username"></i></span>
+																			<input id="modlgn-username" type="text" name="username" class="input" tabindex="0" size="18" placeholder="Username" />
+																		</div>
+																	</div>
+																</div>
+																<div id="form-login-password" class="control-group">
+																	<div class="controls">
+																		<div class="input-prepend">
+																			<span class="add-on"><i class="icon-lock tip" title="Password"></i></span>
+																			<input id="modlgn-passwd" type="password" name="password" class="input" tabindex="0" size="18" placeholder="Password" />
+																		</div>
+																	</div>
+																</div>
+																<div id="form-login-remember" class="control-group">
+																	<label for="modlgn-remember" class="checkbox"><input id="modlgn-remember" type="checkbox" name="remember" class="input" value="yes"/> Remember Me</label>
+																</div>
+																<div class="control-group">
+																	<input type="submit" name="Submit" class="btn btn-primary" value="Log in" />
+																</div>
+																<ul class="unstyled">
+																	<li>
+																		<a href="index.php/en/using-joomla/extensions/components/users-component/registration-form">
+																		Create an account <span class="icon-arrow-right"></span></a>
+																	</li>
+																	<li>
+																		<a href="index.php/en/using-joomla/extensions/components/users-component/username-reminder">
+																		Forgot your username?</a>
+																	</li>
+																	<li>
+																		<a href="index.php/en/using-joomla/extensions/components/users-component/password-reset">Forgot your password?</a>
+																	</li>
+																</ul>
+																<input type="hidden" name="option" value="com_users" />
+																<input type="hidden" name="task" value="user.login" />
+																<input type="hidden" name="return" value="aW5kZXgucGhwP0l0ZW1pZD00MzUmbGFuZz1lbi1HQg==" />
+																<input type="hidden" name="56eedbfeb3352562908d61e8a0f8c167" value="1" />	
+															</fieldset>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="dropdown parent nav-connect" data-altkey="F">
+									<a tabindex="-1" href="" data-toggle="dropdown" class=" dropdown-toggle">
+									<i class="icon-search"></i>Search				  </a>
+									<div class="nav-child dropdown-menu">
+										<div class="dropdown-menu-inner">
+											<div class="t3-module module" id="Mod35">
+												<div class="module-inner">
+													<h3 class="module-title"><span>Search</span></h3>
+													<div class="module-ct">
+														<div class="search">
+															<form action="/index.php/en/travel" method="post" class="form-inline form-search">
+																<label for="mod-search-searchword" class="element-invisible">Search ...</label> <input name="searchword" id="mod-search-searchword" maxlength="200"  class="input" type="text" size="20" placeholder="Search ..." />		<input type="hidden" name="task" value="search" />
+																<input type="hidden" name="option" value="com_search" />
+																<input type="hidden" name="Itemid" value="512" />
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="qs-result-panel t3-hide">
+												<div class="qs-result-header">
+													<h2>Search for<span class="qskeyword">...</span></h2>
+												</div>
+												<div class="qs-result-list-wrap">
+													<div class="qs-result-list"></div>
+												</div>
+												<div class="qs-result-paging pagination"></div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="dropdown nav-helps" data-altkey="I">
+									<a tabindex="-1" title="Helps" href="#t3-sidebar-1" role="button">
+									<i class="icon-info"></i>Helps				  </a>
+								</li>
+							</ul>
+						</div>
+						<!-- //USER, FOLLOW US -->
+						<div class="span12 pull-right logo">
+							<div class="logo-image">
+								<a href="" title="JoomlArt Demo Site">
+								<img class="logo-img " src="templates/ja_smashboard/images/logo.png" alt="JoomlArt Demo Site" />
+								<span>JoomlArt Demo Site</span>
+								</a>
+								<small class="site-slogan"></small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- //HEADER -->
+		<!-- MAIN NAVIGATION -->
+		<nav id="t3-mainnav" class="t3-mainnav navbar-collapse-fixed-top navbar-fixed-top">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="nav-collapse collapse always-show">
+						<ul class="nav  nav-list">
+							<li class="item-435" data-pagecls="body-bg"><a tabindex="-1" class="icon-fighter-jet" href="index.php/en/"><span class="menu-title">Featured Articles</span></a></li>
+							<li class="item-512 current active" data-pagecls="body-bg"><a tabindex="-1" class="icon-star" href="index.php/en/travel"><span class="menu-title">لباس عروس</span></a></li>
+							<li class="item-448" data-pagecls="body-bg body-bg-1"><a tabindex="-1" class="icon-music" href="index.php/en/music"><span class="menu-title">Music Page</span></a></li>
+							<li class="item-468" data-pagecls="body-bg body-bg-2"><a tabindex="-1" class="icon-gamepad" href="index.php/en/gaming"><span class="menu-title">لباس کودک</span></a></li>
+							<li class="item-469" data-pagecls="body-bg body-bg-3"><a tabindex="-1" class="icon-trophy" href="index.php/en/sports"><span class="menu-title">لباس ورزش</span></a></li>
+							<li class="item-470" data-pagecls="body-bg body-bg-4"><a tabindex="-1" class="icon-rocket" href="index.php/en/entertainment"><span class="menu-title">Entertainment</span></a></li>
+							<li class="item-471" data-pagecls="body-bg body-bg-5"><a tabindex="-1" class="icon-briefcase" href="index.php/en/science-technology"><span class="menu-title">Science &amp; Technology</span></a></li>
+							<li class="item-455" data-pagecls="body-bg  body-bg-6"><a tabindex="-1" class="icon-github-sign" href="index.php/en/pets-animals"><span class="menu-title">Pets &amp; Animals</span></a></li>
+							<li class="item-513" data-pagecls="body-bg body-bg-8"><a tabindex="-1" class="icon-film" href="index.php/en/movies"><span class="menu-title">Movies</span></a></li>
+							<li class="item-514" data-pagecls="body-bg body-bg-9"><a tabindex="-1" class="icon-facetime-video" href="index.php/en/videos"><span class="menu-title">Videos</span></a></li>
+							<li class="item-529" data-pagecls="noajax"><a tabindex="-1" class="icon-lock" href="index.php/en/registration"><span class="menu-title">Registration</span></a></li>
+							<li class="item-530" data-pagecls="noajax"><a tabindex="-1" class="icon-user-md" href="index.php/en/contact"><span class="menu-title">Contact</span></a></li>
+							<li class="item-544" data-pagecls="body-bg"><a tabindex="-1" class="icon-heart" href="index.php/en/k2-trending"><span class="menu-title">K2 Trending</span></a></li>
+							<li class="item-546" data-pagecls="body-bg"><a tabindex="-1" class="icon-th-large" href="index.php/en/k2-user-page"><span class="menu-title">K2 User page</span></a></li>
+							<li class="item-547" data-pagecls="body-bg"><a tabindex="-1" class="icon-tags" href="index.php/en/k2-tags"><span class="menu-title">K2 Tags</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!-- //MAIN NAVIGATION -->
+		<section id="t3-mainbody" class="container t3-mainbody">
+			<div class="row">
+				<!-- MAIN CONTENT -->
+				<div id="t3-content" class="t3-content span9 pull-left"  data-default="span9 pull-left" data-xtablet="span8 pull-left" data-tablet="span9">
+					<div id="system-message-container">
+					</div>
+					<div class="ja-infinity-wraper">
+						<div class="ja-infinity blog body-bg clearfix">
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel1.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/163-airbus-rolls-out-new-a350-xwb"> Airbus rolls out new A350 XWB</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:163" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/163-airbus-rolls-out-new-a350-xwb#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/163-airbus-rolls-out-new-a350-xwb#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Praesent et suscipit enim. Aenean a fringilla odio. Fusce ac ante nisl, congue vestibulum ante. Phasellus ipsum mi, tincidunt a eleifend ultricies, porta non nisl. Cras commodo, lectus sit amet mattis mattis, nulla leo pellentesque tellus, a aliquet diam ligula vel dui. Sed aliquam, turpis id euismod elementum, libero est molestie purus, eu vehicula tellus purus ut urna. Maecenas est orci, rutrum eget auctor vitae; ullamcorper nec enim.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel2.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/164-south-korea-s-no-1-national-treasure-reopens-after-five-years"> South Korea's No. 1 national treasure reopens after five years</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:164" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/164-south-korea-s-no-1-national-treasure-reopens-after-five-years#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/164-south-korea-s-no-1-national-treasure-reopens-after-five-years#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Praesent a risus orci. In et justo arcu. Sed sapien massa; volutpat non porttitor eget; molestie in ligula. Cras egestas arcu molestie ante aliquam faucibus. Etiam sed mollis lectus. Sed mauris nisi, varius in aliquet sed; iaculis in eros? Sed euismod vulputate massa; in tristique elit rhoncus et. Sed posuere, quam sit amet vehicula pharetra, diam magna ornare felis; ut tristique elit turpis et mauris.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel3.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/165-sky-high-adventures-hot-air-ballooning"> Sky high adventures : Hot air ballooning</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:165" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/165-sky-high-adventures-hot-air-ballooning#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/165-sky-high-adventures-hot-air-ballooning#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Vestibulum ac egestas odio. Duis quis pulvinar odio. Sed magna dui, luctus at blandit ut, consequat in lacus. Fusce at ante dolor, et commodo lorem. Nulla eu leo urna, at egestas enim! In nisi nisl, dapibus vitae feugiat ac; malesuada sit amet mi? Etiam et neque vitae nunc feugiat sodales.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel4.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/166-trinity-college-in-the-early-evening-dublin-ireland"> Trinity College in the early evening, Dublin, Ireland</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:166" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/166-trinity-college-in-the-early-evening-dublin-ireland#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/166-trinity-college-in-the-early-evening-dublin-ireland#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Quisque non est a urna semper commodo a vitae purus. Cras congue venenatis massa, eget tempor libero porttitor ut. Nullam porta, nibh sed tincidunt cursus; lectus justo ultricies libero, id facilisis velit augue non nunc. Curabitur velit arcu, euismod sed pretium non, dictum id eros. Pellentesque a purus vel tortor luctus eleifend non nec ante. Fusce quis massa nisl; vitae facilisis tortor. Nunc facilisis, nibh eget interdum feugiat, quam nulla cursus libero, eu ultricies ipsum dolor sit amet dolor.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel5.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/167-new-zealand-tours-a-view-of-rangitito-island-from-auckland-s-north-shore"> New Zealand Tours :  A view of Rangitito Island from Auckland's North Shore</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:167" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/167-new-zealand-tours-a-view-of-rangitito-island-from-auckland-s-north-shore#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/167-new-zealand-tours-a-view-of-rangitito-island-from-auckland-s-north-shore#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Etiam leo mauris, vestibulum in molestie sed, sagittis ac sem. Sed auctor tellus nec enim bibendum nec luctus arcu tempor. Suspendisse turpis augue, aliquam nec placerat non, congue eget nibh. Sed nec purus eget mauris eleifend iaculis. Nam euismod aliquet tempus. Integer adipiscing nibh viverra augue consequat pharetra! Donec et tellus magna! Donec nec lacus risus, sit amet interdum arcu. Ut in blandit mi. Vivamus sodales, metus in sodales consequat; lectus orci volutpat turpis; et blandit sem risus vel velit. Phasellus sed enim sed diam imperdiet blandit quis vitae massa.</p>
+											<p>Pellentesque quis diam urna. In mollis mi vitae neque ornare volutpat. Etiam non est at lectus egestas ultrices? Duis dapibus aliquam quam sed pellentesque. Suspendisse potenti. Vestibulum semper vestibulum nunc in pulvinar. Donec eget tincidunt nisi. Suspendisse condimentum, felis id viverra ornare, felis mi feugiat ante, at pulvinar elit turpis nec nulla. Donec nisi tortor, faucibus eget pellentesque vel, cursus a purus. Donec tristique dolor libero. Sed blandit placerat arcu, at fringilla ante convallis sit amet. Vestibulum rhoncus commodo velit, vel bibendum odio suscipit sed. Nulla at pretium odio. Integer ut mauris elit, eu rutrum justo!</p>
+											<p>Curabitur dictum pulvinar nibh eu condimentum. Maecenas gravida magna sit amet lorem hendrerit tincidunt. Ut augue neque, porttitor ut tristique a; imperdiet vel quam. Mauris vel tortor ac est auctor posuere quis sit amet arcu. Pellentesque a neque ante, vel pretium urna! Nam vehicula scelerisque lectus, et iaculis nulla mollis sed? Nunc eu nisl sagittis justo feugiat imperdiet. In non diam libero, eu mollis sapien. In hac habitasse platea dictumst. Nam ut eros eros, id iaculis ipsum. Proin non vulputate sapien.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel6.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/168-hawaii-vacation-palm-trees-blue-sky-and-sea-in-hawaii"> Hawaii Vacation - Palm trees, Blue sky and Sea in Hawaii</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:168" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/168-hawaii-vacation-palm-trees-blue-sky-and-sea-in-hawaii#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/168-hawaii-vacation-palm-trees-blue-sky-and-sea-in-hawaii#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Mauris quis augue et neque posuere dictum et in purus. Aliquam eleifend tempus sem in molestie. Mauris egestas sem vitae justo fermentum dapibus. Aliquam mattis accumsan egestas? Vivamus congue lectus et nisi ultricies feugiat. Morbi sapien mi, placerat vel sagittis ut, varius in augue. Sed a ligula eu nisi gravida sagittis malesuada sit amet eros. Maecenas non elit turpis, nec commodo leo. Nullam placerat tincidunt leo et suscipit.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel7.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/169-tourist-attractions-country-villa-val-diorcia-tuscany-italy"> Tourist Attractions -  Country Villa Val diOrcia Tuscany Italy</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:169" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/169-tourist-attractions-country-villa-val-diorcia-tuscany-italy#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/169-tourist-attractions-country-villa-val-diorcia-tuscany-italy#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Curabitur non lacinia neque. Nunc sed diam accumsan felis adipiscing venenatis. Aliquam sapien est, tincidunt vitae mollis pharetra, condimentum quis ipsum. Phasellus sed nisi enim, eget molestie velit. Duis dictum arcu mauris. Proin ut dui nec urna auctor scelerisque et ut lacus. Morbi id lectus non neque adipiscing lacinia vel egestas nunc! Quisque non nibh metus, nec scelerisque neque. Sed sed nisl odio, sed tristique metus.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel8.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/170-outdoor-market-red-lanterns-for-new-year-celebration-beijing-china"> Outdoor Market - Red lanterns for New Year Celebration, Beijing, China</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:170" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/170-outdoor-market-red-lanterns-for-new-year-celebration-beijing-china#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/170-outdoor-market-red-lanterns-for-new-year-celebration-beijing-china#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>In hac habitasse platea dictumst. Ut et turpis ut ante vestibulum porttitor. Nunc a dignissim orci. Suspendisse quis orci imperdiet sapien vehicula pulvinar. Fusce faucibus magna ac erat feugiat pulvinar. Suspendisse potenti. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a neque ut purus luctus cursus in ac justo.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel9.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/171-on-the-road-kanda-festival-japan"> On the road: Kanda Festival, Japan</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:171" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/171-on-the-road-kanda-festival-japan#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/171-on-the-road-kanda-festival-japan#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Curabitur quis velit sapien, ac pellentesque enim? Pellentesque dolor elit; dictum quis lobortis quis; pellentesque sagittis magna. Pellentesque id urna vel eros tempor fringilla! In hac habitasse platea dictumst. Nunc iaculis hendrerit nibh, a ultrices risus lobortis ac. Proin tristique ligula non dui porta consequat! Quisque posuere ipsum sed libero gravida in ullamcorper tellus condimentum.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel10.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/172-passenger-rightfully-booted-off-plane-for-singing-i-will-always-love-you"> Passenger rightfully booted off plane for singing 'I will always love you'</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:172" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/172-passenger-rightfully-booted-off-plane-for-singing-i-will-always-love-you#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/172-passenger-rightfully-booted-off-plane-for-singing-i-will-always-love-you#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Praesent dolor dolor, porttitor tempor tristique a, egestas nec orci. Donec elit lorem, iaculis mattis tincidunt facilisis, euismod sed sapien. Vivamus tempus, nunc vel molestie tincidunt, odio odio pulvinar metus; et molestie purus nisi non nunc. Vestibulum porttitor interdum mauris, a euismod lacus ultrices id. Proin consequat lorem et est blandit vehicula cursus sapien consectetur.</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+							<div class="item travel">
+								<!-- Article -->
+								<article itemscope itemtype="http://schema.org/Article">
+									<div class="item-image-wrap">
+										<div class="pull-left item-image"> <img
+											src="images/joomlart/demo/travel/travel11.jpg" alt="" itemprop="thumbnailUrl" />
+										</div>
+									</div>
+									<div class="view-item">
+										<header class="article-header clearfix">
+											<h2 class="article-title" itemprop="name">
+												<a class="article-link" href="index.php/en/travel/173-living-in-great-cities-for-history-and-ancient-ruins"> Living in... great cities for history and ancient ruins</a>
+											</h2>
+										</header>
+										<!-- Aside -->
+										<aside class="article-aside clearfix">
+											<dl class="article-info pull-left">
+												<dt class="article-info-term">Details</dt>
+												<dd class="createdby" itemprop="author" itemscope itemtype="http://schema.org/Person">
+													By <span><a href="index.php/en/component/contact/contact/9?Itemid=435" >Super User</a></span>									
+												</dd>
+												<dd class="published" itemprop="datePublished">
+													on <span>19 August 2017</span>				
+												</dd>
+												<dd style="float: none;">&nbsp;</dd>
+												<dd class="comment-view">
+													<div class="jacomment-count">
+														<a class="jacomment-counter" data-disqus-identifier="com_content:article:173" href="http://ja-smashboard.demo.joomlart.com/index.php/en/travel/173-living-in-great-cities-for-history-and-ancient-ruins#disqus_thread" onclick="location.href='http://ja-smashboard.demo.joomlart.com/index.php/en/travel/173-living-in-great-cities-for-history-and-ancient-ruins#disqus_thread'; return false;" title=""></a>
+													</div>
+												</dd>
+											</dl>
+										</aside>
+										<!-- //Aside -->
+										<section class="article-intro clearfix" itemprop="articleBody">
+											<p>Pellentesque dapibus posuere eros, id cursus eros tincidunt in? Donec aliquet, quam in malesuada elementum, neque risus pretium nulla, non mattis lorem felis sit amet nisi. In in pharetra leo. Integer sit amet nibh vitae ipsum bibendum consectetur. Nulla egestas vestibulum suscipit. Duis ultrices; ante sit amet consectetur adipiscing, tortor turpis pellentesque dolor, quis rhoncus ante urna vitae dui. Suspendisse dolor mi, euismod ut cursus in, facilisis lacinia sapien!</p>
+										</section>
+									</div>
+								</article>
+								<!-- //Article -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- //MAIN CONTENT -->
+				<!-- SIDEBAR 1 -->
+				<div id="t3-sidebar-1" class="t3-sidebar t3-sidebar-1 span3 t3respon" data-default="span3" data-xtablet="span4" data-tablet="span9 spanfirst" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="sidebar-inner">
+						<div class="sidebar-scroller">
+							<div class="t3-module module" id="Mod108">
+								<div class="module-inner">
+									<h3 class="module-title"><span>Helps</span></h3>
+									<div class="module-ct">
+										<div class="custom"  >
+											<table class="symbols-list">
+												<tbody>
+													<tr>
+														<td><span class="symbol">←</span><span>Prev article</span></td>
+														<td><span class="symbol">↑</span><span>Prev Category</span></td>
+													</tr>
+													<tr>
+														<td><span class="symbol">→</span><span>Next article</span></td>
+														<td><span class="symbol">↓</span><span>Next Category</span></td>
+													</tr>
+													<tr>
+														<td><span class="symbol ">«</span><span>Back to first article</span></td>
+														<td><span class="symbol">F</span><span>Search / Find</span></td>
+													</tr>
+													<tr>
+														<td><span class="symbol">↵</span><span>Go to item link</span></td>
+														<td><span class="symbol">S</span><span>Share / Social</span></td>
+													</tr>
+													<tr>
+														<td><span class="symbol">I</span><span>Info (left column)</span></td>
+														<td><span class="symbol">U</span><span>Login Form</span></td>
+													</tr>
+													<tr>
+														<td><span class="symbol">ESC</span><span>Close popup</span></td>
+														<td></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="t3-module module" id="Mod110">
+								<div class="module-inner">
+									<h3 class="module-title"><span>About Us</span></h3>
+									<div class="module-ct">
+										<div class="custom"  >
+											<p class="about"><img src="images/joomlart/demo/about.jpg" alt="Sample Image" />Lorem ipsum dolor sit amet consectetuer ipsum consequat consectetuer laoreet eros. Rhoncus mollis hendrerit quis nunc Vivamus sit hendrerit Nulla dui est. Risus neque sagittis Vestibulum ut felis pretium nibh Sed Phasellus lorem. Accumsan ligula Fusce eros magna tempus nisl elit laoreet congue adipiscing.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="t3-module module" id="Mod41">
+								<div class="module-inner">
+									<div class="module-ct">
+										<small>Copyright &#169; 2017 JoomlArt Demo Site. All Rights Reserved. Powered by <a href="http://www.joomlart.com/joomla/templates/ja-smashboard" title="JA Smashboard"  rel="nofollow" >JA Smashboard</a> - Designed by JoomlArt.com.</small>
+										<br />
+										<small><a href="https://www.joomla.org">Joomla!</a> is Free Software released under the <a href="https://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License.</a></small>	  
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="poweredby">
+						<small><a class="t3-logo t3-logo-dark" href="http://t3-framework.org" title="Powered By T3 Framework" target="_blank">Powered by <strong>T3 Framework</strong></a></small>
+					</div>
+				</div>
+				<!-- //SIDEBAR 1 -->
+			</div>
+		</section>
+		<!-- FOOTER -->
+		<footer id="t3-footer" class="wrap t3-footer span3 pull-right">
+			<section class="t3-copyright">
+				<div class="row">
+					<div class="copyright">
+						<div class="custom"  >
+							<div class="ja-keyboard-btns clearfix">
+								<a href="#" title="Up" class="ja-keyboard-up"  tabindex="-1"><i class="icon-caret-up"></i></a>
+								<a href="#" title="right" class="ja-keyboard-right"  tabindex="-1"><i class="icon-caret-right"></i></a>
+								<a href="#" title="Down" class="ja-keyboard-down"  tabindex="-1"><i class="icon-caret-down"></i></a>
+								<a href="#" title="Left" class="ja-keyboard-left"  tabindex="-1"><i class="icon-caret-left"></i></a>
+								<a href="#" title="Backward" class="ja-keyboard-playback"  tabindex="-1"><i class="icon-step-backward"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</footer>
+		<!-- //FOOTER -->
+		<!-- POPUP VIEW -->
+		<div id="popup-view">
+			<div id="popup-content">
+				<div class="popup-head">
+					<a id="popup-close" href="" class="btn-close pull-right" title="Close">Close</a>
+				</div>
+				<div class="popup-nav pull-right">
+					<a id="popup-prev" href="" class="icon-arrow-left" title="Previous"><span>Previous</span></a>
+					<a id="popup-next" href="" class="icon-arrow-right" title="Next"><span>Next</span></a>
+				</div>
+				<div id="popup-loader" class="fade" data-backdrop="">
+					<div class="ajax-indicator">Loading...</div>
+				</div>
+			</div>
+		</div>
+		<!-- //POPUP VIEW -->
+		<!-- PAGE LOADER INDICATOR -->
+		<div id="page-loader" class="fade" data-backdrop="">
+			<div class="ajax-indicator">Loading...</div>
+		</div>
+		<!-- //PAGE LOADER INDICATOR -->
+		<!-- ARTICLE LOADER INDICATOR -->
+		<div id="article-loader" class="fade" data-backdrop="">
+			<div class="ajax-indicator">Loading...</div>
+		</div>
+		<!-- //ARTICLE LOADER INDICATOR -->
+	</body>
 </html>
